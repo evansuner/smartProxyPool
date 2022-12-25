@@ -12,12 +12,14 @@ import time
 from handler.log_handler import LogHandler
 
 import urllib3
+
 urllib3.disable_warnings()
+
 
 class WebRequest:
     name = 'web_request'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.log = LogHandler(self.name, file=False)
         self.response = Response
 
