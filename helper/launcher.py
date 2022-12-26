@@ -10,6 +10,7 @@ from handler.config_handler import ConfigHandler
 
 log = LogHandler('launcher')
 
+
 def start_server():
     __before_start()
     from api.proxy_api import run_fastapi
@@ -52,3 +53,4 @@ def __before_start():
 def start_scheduler():
     __before_start()
     from helper.scheduler import run_scheduler
+    run_scheduler()

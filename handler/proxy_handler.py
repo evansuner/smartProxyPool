@@ -7,6 +7,7 @@ from helper.proxy import Proxy
 from db.db_client import DBClient
 from handler.config_handler import ConfigHandler
 
+
 class ProxyHandler:
     """Proxy CURD operators"""
 
@@ -15,7 +16,7 @@ class ProxyHandler:
         self.db = DBClient(self.conf.db_conn)
         self.db.change_table(self.conf.table_name)
 
-    def get(self, https:False):
+    def get(self, https: False):
         """
         return a proxy
         args:
@@ -24,7 +25,7 @@ class ProxyHandler:
         """
         proxy = self.db.get(https)
         return Proxy.create_from_json(proxy) if proxy else None
-    
+
     def pop(self, https):
         """return and delete a useful proxy"""
         proxy = self.db.pop(https)

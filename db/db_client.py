@@ -3,11 +3,10 @@
 
 __author__ = 'Evan'
 
-import os
+from os.path import dirname, abspath
 import sys
-ROOT = os.path.dirname(os.path.abspath(__file__))
-# sys.path.insert(0, os.path.join(ROOT, '..'))
-sys.path.append(os.path.join(ROOT, '..'))
+ROOT = dirname(dirname(abspath(__file__)))
+sys.path.insert(0, ROOT)
 from urllib.parse import urlparse
 from utils.six import withMetaclass
 from utils.singleton import Singleton

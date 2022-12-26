@@ -14,7 +14,7 @@ from helper.validator import ProxyValidator
 
 
 class Validator:
-    """do validate"""
+    """do validating"""
     conf = ConfigHandler()
 
     @classmethod
