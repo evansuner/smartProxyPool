@@ -132,7 +132,6 @@ def checker(tp, queue):
     """
     thread_list = list()
     for index in range(20):
-        print('----------------------', index)
         thread_list.append(_ThreadChecker(tp, queue, "thread_%s" % str(index).zfill(2)))
 
     for thread in thread_list:

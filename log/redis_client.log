@@ -1,0 +1,64 @@
+2022-12-27 19:35:06,715 redis_client.py[line:121] ERROR redis connection error: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+Traceback (most recent call last):
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 598, in connect
+    sock = self.retry.call_with_retry(
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/retry.py", line 46, in call_with_retry
+    return do()
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 599, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 664, in _connect
+    raise err
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 652, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 116, in test
+    self.get_count()
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 104, in get_count
+    proxies = self.get_all(https=False)
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 88, in get_all
+    items = self.__conn.hvals(self.name)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/commands/core.py", line 4905, in hvals
+    return self.execute_command("HVALS", name)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/client.py", line 1255, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 1591, in get_connection
+    connection.connect()
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 604, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+2022-12-27 19:35:06,715 redis_client.py[line:121] ERROR redis connection error: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+Traceback (most recent call last):
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 598, in connect
+    sock = self.retry.call_with_retry(
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/retry.py", line 46, in call_with_retry
+    return do()
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 599, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 664, in _connect
+    raise err
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 652, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 116, in test
+    self.get_count()
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 104, in get_count
+    proxies = self.get_all(https=False)
+  File "/Users/evan/Desktop/developer.nosync/smart_proxy_pool/db/redis_client.py", line 88, in get_all
+    items = self.__conn.hvals(self.name)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/commands/core.py", line 4905, in hvals
+    return self.execute_command("HVALS", name)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/client.py", line 1255, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 1591, in get_connection
+    connection.connect()
+  File "/Users/evan/Library/Python/3.9/lib/python/site-packages/redis/connection.py", line 604, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.

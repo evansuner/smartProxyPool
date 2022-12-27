@@ -196,3 +196,82 @@
 2022-12-27 18:04:50,732 launcher.py[line:39] INFO DB_NAME: 0
 2022-12-27 18:04:50,732 launcher.py[line:40] INFO DB_USER: 
 2022-12-27 18:04:50,732 launcher.py[line:41] INFO ==========================================================
+2022-12-27 19:35:06,668 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 19:35:06,668 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 19:35:06,668 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 19:35:06,668 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 19:35:06,668 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 19:35:06,668 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 19:35:06,668 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 19:35:06,668 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 19:35:06,713 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 19:35:06,713 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 19:35:06,713 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 19:35:06,713 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 19:35:06,713 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 19:35:06,713 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 19:35:06,713 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 19:35:06,713 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 19:35:06,713 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 19:35:06,713 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 19:35:06,713 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 19:35:06,713 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 19:35:06,713 launcher.py[line:41] INFO ==========================================================
+2022-12-27 19:35:06,713 launcher.py[line:41] INFO ==========================================================
+2022-12-27 19:35:06,728 launcher.py[line:49] INFO exit!
+2022-12-27 19:35:06,728 launcher.py[line:49] INFO exit!
+2022-12-27 20:03:38,444 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 20:03:38,444 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 20:03:38,444 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 20:03:38,444 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 20:03:38,445 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 20:03:38,445 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 20:03:38,445 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 20:03:38,445 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 20:03:38,522 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 20:03:38,522 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 20:03:38,522 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 20:03:38,522 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 20:03:38,522 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 20:03:38,522 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 20:03:38,522 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 20:03:38,522 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 20:03:38,522 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 20:03:38,522 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 20:03:38,522 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 20:03:38,522 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 20:03:38,522 launcher.py[line:41] INFO ==========================================================
+2022-12-27 20:03:38,522 launcher.py[line:41] INFO ==========================================================
+2022-12-27 20:22:09,746 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 20:22:09,746 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 20:22:09,746 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 20:22:09,746 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 20:22:09,790 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 20:22:09,791 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 20:22:09,791 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 20:22:09,791 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 20:22:09,791 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 20:22:09,791 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 20:22:09,791 launcher.py[line:41] INFO ==========================================================
+2022-12-27 20:25:20,867 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 20:25:20,867 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 20:25:20,867 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 20:25:20,867 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 20:25:20,928 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 20:25:20,939 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 20:25:20,939 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 20:25:20,939 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 20:25:20,939 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 20:25:20,939 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 20:25:20,939 launcher.py[line:41] INFO ==========================================================
+2022-12-27 20:26:52,461 launcher.py[line:22] INFO SmartProxyPool Version: 1.0
+2022-12-27 20:26:52,461 launcher.py[line:27] INFO SmartProxyPool configure HOST: 0.0.0.0
+2022-12-27 20:26:52,461 launcher.py[line:28] INFO SmartProxyPool configure PORT: 5010
+2022-12-27 20:26:52,462 launcher.py[line:29] INFO SmartProxyPool configure PROXY_FETCHER: ['free_proxy01', 'free_proxy02', 'free_proxy03', 'free_proxy04', 'free_proxy05', 'free_proxy06', 'free_proxy07', 'free_proxy09', 'free_proxy10']
+2022-12-27 20:26:52,507 launcher.py[line:35] INFO ==================== DATABASE CONFIGURE ===================
+2022-12-27 20:26:52,507 launcher.py[line:36] INFO DB_TYPE: REDIS
+2022-12-27 20:26:52,507 launcher.py[line:37] INFO DB_HOST: 127.0.0.1
+2022-12-27 20:26:52,507 launcher.py[line:38] INFO DB_PORT: 6379
+2022-12-27 20:26:52,507 launcher.py[line:39] INFO DB_NAME: 0
+2022-12-27 20:26:52,507 launcher.py[line:40] INFO DB_USER: 
+2022-12-27 20:26:52,507 launcher.py[line:41] INFO ==========================================================

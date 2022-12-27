@@ -52,7 +52,7 @@ VERIFY_TIMEOUT = 10
 # maximum checking times otherwise delete the proxy
 MAX_FAIL_COUNT = 0
 # during proxy checking, it will handle schedule while less than POOL_SIZE_MIN
-POLL_SIZE_MIN = 20
+POLL_SIZE_MIN = 10
 
 # proxy attributes
 # turn on proxy region attributes

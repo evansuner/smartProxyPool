@@ -7,9 +7,9 @@ import json
 
 
 class Proxy:
-    def __init__(self, proxy, fail_count=0, region='', anonymous='',
-                 source='', check_count=0, last_status='',
-                 last_time='', https=False) -> None:
+    def __init__(self, proxy, fail_count: int = 0, region: str = '', anonymous: str = '',
+                 source: str = '', check_count: int = 0, last_status: str = '',
+                 last_time: str = '', https: bool = False) -> None:
         self._proxy = proxy
         self._fail_count = fail_count
         self._region = region
@@ -22,7 +22,7 @@ class Proxy:
 
     @classmethod
     def create_from_json(cls, proxy_json: json):
-        _dict = json.loads(proxy_json)
+        _dict: dict = json.loads(proxy_json)
         return cls(
             proxy=_dict.get('proxy', ''),
             fail_count=_dict.get('fail_count', ''),
