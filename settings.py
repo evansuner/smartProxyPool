@@ -23,22 +23,23 @@ HOST = '0.0.0.0'
 PORT = 5010
 
 # database config
-DB_CONN = 'redis://:pwd@127.0.0.1/0'
+DB_CONN = 'redis://:123456@127.0.0.1:6379/0'
 
 TABLE_NAME = 'use_proxy'
 
 # config the proxy fetch function
 PROXY_FETCHER = [
-    "freeProxy01",
-    "freeProxy02",
-    "freeProxy03",
-    "freeProxy04",
-    "freeProxy05",
-    "freeProxy06",
-    "freeProxy07",
-    "freeProxy08",
-    "freeProxy09",
-    "freeProxy10",
+    "free_proxy01",
+    "free_proxy02",
+    "free_proxy03",
+    "free_proxy04",
+    "free_proxy05",
+    "free_proxy06",
+    "free_proxy07",
+    # "free_proxy08",
+    "free_proxy09",
+    "free_proxy10",
+
 ]
 
 # proxy_validator

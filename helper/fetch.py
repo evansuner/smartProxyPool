@@ -14,6 +14,7 @@ from fetcher.proxy_fetcher import ProxyFetcher
 
 class _ThreadFetcher(Thread):
     def __init__(self, fetch_source, proxy_dict):
+        Thread.__init__(self)
         self.fetch_source = fetch_source
         self.proxy_dict = proxy_dict
         self.fetcher = getattr(ProxyFetcher, fetch_source, None)

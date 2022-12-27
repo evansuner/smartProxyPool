@@ -1,0 +1,13 @@
+version: '3'
+services:
+  sproxy_pool:
+    build: .
+    container_name: sproxy_pool
+    ports:
+      - "5010:5010"
+    links:
+      - proxy_redis
+    environment:
+      DB_CONN: "redis://@proxy_redis:6379/0"
+  proxy_redis:
+    container_name: proxy_redis

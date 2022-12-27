@@ -76,7 +76,7 @@ class _ThreadChecker(Thread):
     """multithread checking"""
 
     def __int__(self, work_type, target_queue, thread_name):
-        Thread.__init__(self, name=thread_name)
+        Thread.__init__(self, name=thread_name, group=None)
         self.work_type = work_type
         self.log = LogHandler('checker')
         self.proxy_handler = ProxyHandler()
@@ -140,3 +140,8 @@ def checker(tp, queue):
 
     for thread in thread_list:
         thread.join()
+
+
+if __name__ == '__main__':
+    v = Validator()
+

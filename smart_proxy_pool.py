@@ -16,14 +16,13 @@ def cli():
     """SmartProxyPool tool"""
 
 
-@click.command(name='schedule')
+@cli.command()
 def schedule():
-    """start scheduler programe"""
-    click.echo(BANNER)
+    """start scheduler programme"""
     start_scheduler()
 
 
-@click.command(name='server')
+@cli.command()
 def server():
     """start api server"""
     click.echo(BANNER)

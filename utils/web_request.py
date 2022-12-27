@@ -11,10 +11,6 @@ import time
 
 from handler.log_handler import LogHandler
 
-import urllib3
-
-urllib3.disable_warnings()
-
 
 class WebRequest:
     name = 'web_request'
@@ -40,7 +36,7 @@ class WebRequest:
     @property
     def header(self):
         return {
-            'user-agent': self.user_agent(),
+            'user-agent': self.user_agent,
             'Accept': '*/*',
             'Connection': 'keep-alive',
             'Accept-Language': 'zh-CN,zh;q=0.8'
@@ -53,6 +49,7 @@ class WebRequest:
         while True:
             try:
                 self.response = requests.get(url, headers=headers, timeout=timeout, *args, **kwargs)
+                return self
             except Exception as e:
                 self.log.error(f'requests: {url} error: {str(e)}')
                 retry_time -= 1
@@ -78,3 +75,9 @@ class WebRequest:
         except Exception as e:
             self.log.error(str(e))
             return {}
+
+
+if __name__ == '__main__':
+    w = WebRequest()
+    res = w.get('https://ip.jiangxianli.com/?page=1&country=%E4%B8%AD%E5%9B%BD')
+    print(res.text)

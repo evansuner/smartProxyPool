@@ -5,6 +5,7 @@ __author__ = 'Evan'
 
 from os.path import dirname, abspath
 import sys
+
 ROOT = dirname(dirname(abspath(__file__)))
 sys.path.insert(0, ROOT)
 from urllib.parse import urlparse
@@ -50,7 +51,7 @@ class DBClient(withMetaclass(Singleton)):
         cls.db_host = db_conf.hostname
         cls.db_port = db_conf.port
         cls.db_user = db_conf.username
-        cls.db_pwd = db_conf.password
+        cls.db_password = db_conf.password
         cls.db_name = db_conf.path[1:]
         return cls
 
@@ -59,19 +60,18 @@ class DBClient(withMetaclass(Singleton)):
         init db client
         :return:
         """
-        __type = None
-        if "SSDB" == self.db_type:
-            __type = "ssdbClient"
-        elif "REDIS" == self.db_type:
-            __type = "redisClient"
+        if "REDIS" == self.db_type:
+            from .redis_client import RedisClient
+            self.client = RedisClient(
+                host=self.db_host,
+                port=self.db_port,
+                username=self.db_user,
+                password=self.db_password,
+                db=self.db_name
+            )
         else:
             pass
-        assert __type, 'type error, not supported DB type: {}'.format(self.db_type)
-        self.client = getattr(__import__(__type), "%sClient" % self.db_type.title())(host=self.db_host,
-                                                                                     port=self.db_port,
-                                                                                     username=self.db_user,
-                                                                                     password=self.db_pwd,
-                                                                                     db=self.db_name)
+        assert 'database type error, not supported DB type: {}'.format(self.db_type)
 
     def get(self, https, **kwargs):
         return self.client.get(https, **kwargs)

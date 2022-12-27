@@ -68,7 +68,7 @@ class Proxy:
         """
         代理来源
         """
-        return self._proxy
+        return '/'.join(self._source)
 
     @property
     def check_count(self):
@@ -141,6 +141,12 @@ class Proxy:
     @https.setter
     def https(self, value):
         self._https = value
+
+    @source.setter
+    def source(self, source_str):
+        if source_str:
+            self._source.append(source_str)
+            self._source = list(set(self._source))
 
     def add_source(self, source_str):
         if source_str:

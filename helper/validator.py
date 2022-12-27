@@ -74,3 +74,8 @@ def https_timeout_validator(proxy):
 def custom_validator_example(proxy):
     """custom validator function, verify whether proxy could be used, function should return True/False"""
     return True
+
+
+if __name__ == '__main__':
+    res = https_timeout_validator('211.138.6.37:9091')
+    print(res)

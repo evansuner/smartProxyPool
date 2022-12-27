@@ -13,7 +13,7 @@ log = LogHandler('launcher')
 
 def start_server():
     __before_start()
-    from api.proxy_api import run_fastapi
+    from api.api import run_fastapi
     run_fastapi()
 
 

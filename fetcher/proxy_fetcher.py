@@ -9,6 +9,9 @@ from datetime import datetime
 from time import sleep
 from utils.web_request import WebRequest
 from urllib import parse
+from urllib3.exceptions import InsecureRequestWarning
+import requests
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 class ProxyFetcher:
@@ -17,22 +20,23 @@ class ProxyFetcher:
     @classmethod
     def free_proxy01(cls):
         """
-        站大爷 https://www.zdaye/dayProxy.html
+        站大爷 https://www.zdaye.com/dayProxy.html
         """
-        start_url = 'https://www.zdaye/dayProxy.html'
-        tree = WebRequest().get(start_url).tree
-        latest_page_time = tree.xpath('//span[@class="thread_time_info"]/text()')[0].strip()
-        interval = datetime.now() - datetime.strptime(latest_page_time, '%Y-%m-%d %H:%M:%S')
-        if interval.seconds < 300:  # only scrape proxy update in 5 mins
-            target_url = 'https://zdaye.com/' + tree.xpath("//h3[@class='thread_title']/a/@href")[0].strip()
+        start_url = "https://www.zdaye.com/dayProxy.html"
+        html_tree = WebRequest().get(start_url).tree
+        latest_page_time = html_tree.xpath("//span[@class='thread_time_info']/text()")[0].strip()
+        from datetime import datetime
+        interval = datetime.now() - datetime.strptime(latest_page_time, "%Y/%m/%d %H:%M:%S")
+        if interval.seconds < 300:  # 只采集5分钟内的更新
+            target_url = "https://www.zdaye.com/" + html_tree.xpath("//h3[@class='thread_title']/a/@href")[0].strip()
             while target_url:
                 _tree = WebRequest().get(target_url).tree
-                for tr in _tree.xpath('//table//tr'):
-                    ip = ''.join(tr.xpath('./td[1]/text()')).strip()
-                    port = ''.join(tr.xpath('./td[2]/text()')).strip()
+                for tr in _tree.xpath("//table//tr"):
+                    ip = "".join(tr.xpath("./td[1]/text()")).strip()
+                    port = "".join(tr.xpath("./td[2]/text()")).strip()
                     yield f'{ip}:{port}'
-                next_page = _tree.xpath('//div[@class="page"]/a[@title="下一页"]/@href')
-                target_url = 'https://www.zdaye.com/' + next_page[0].strip() if next_page else False
+                next_page = _tree.xpath("//div[@class='page']/a[@title='下一页']/@href")
+                target_url = "https://www.zdaye.com/" + next_page[0].strip() if next_page else False
                 sleep(5)
 
     @classmethod
@@ -71,7 +75,7 @@ class ProxyFetcher:
         FreeProxyList https://www.freeproxylists.net/zh/
         """
         url = "https://www.freeproxylists.net/zh/?c=CN&pt=&pr=&a%5B%5D=0&a%5B%5D=1&a%5B%5D=2&u=90"
-        tree = WebRequest().get(url, verify=False).tree
+        tree = WebRequest().get(url).tree
 
         def parse_ip(input_str):
             html_str = parse.unquote(input_str)
@@ -134,3 +138,53 @@ class ProxyFetcher:
             proxies = re.findall(regex, r.text)
             for proxy in proxies:
                 yield ":".join(proxy)
+
+    # @classmethod
+    # def free_proxy08(cls):
+    #     """
+    #     小幻代理
+    #     """
+    #     urls = ['https://ip.ihuan.me/address/5Lit5Zu9.html']
+    #     for url in urls:
+    #         r = WebRequest().get(url, timeout=10)
+    #         regex = r'>\s*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*?</a></td><td>(\d+)</td>'
+    #         proxies = re.findall(regex, r.text)
+    #         for proxy in proxies:
+    #             yield ":".join(proxy)
+
+    @classmethod
+    def free_proxy09(cls, page_count=1):
+        """
+        https://ip.jiangxianli.com/?page=1&country=中国
+        """
+        for i in range(1, page_count + 1):
+            url = 'https://ip.jiangxianli.com/?page={}&country=中国'.format(i)
+            tree = WebRequest().get(url, verify=False).tree
+            for index, tr in enumerate(tree.xpath('//table//tr')):
+                if index == 0:
+                    continue
+                try:
+                    ip = tr.xpath('./td[1]/text()')[0].strip()
+                    port = tr.xpath('./td[2]/text()')[0].strip()
+                except Exception as e:
+                    continue
+                if port and ip:
+                    yield f'{ip}:{port}'
+
+    @classmethod
+    def free_proxy10(cls):
+        """89免费代理"""
+        resp = WebRequest().get("https://www.89ip.cn/index_1.html", timeout=10)
+        tree = resp.tree
+        trs = tree.xpath('//div[3]/div[1]/div/div[1]/table//tr')
+        for i in range(1, len(trs)):
+            ip = tree.xpath(f'//div[3]/div[1]/div/div[1]/table//tr[{i}]/td[1]/text()')[0].strip()
+            port = tree.xpath(f'//div[3]/div[1]/div/div[1]/table//tr[{i}]/td[2]/text()')[0].strip()
+            yield f'{ip}:{port}'
+
+
+if __name__ == '__main__':
+    p = ProxyFetcher()
+    # p.free_proxy09()
+    for _ in p.free_proxy01():
+        print(_)

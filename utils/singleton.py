@@ -13,7 +13,7 @@ class Singleton(type):
 
     _instance = {}
 
-    def __call__(self, *args: Any, **kwsds: Any) -> Any:
-        if self not in self._instance:
-            self._instance[self] = super(Singleton, self).__call__(*args)
-        return self._instance[self]
+    def __call__(cls, *args: Any, **kwargs: Any) -> Any:
+        if cls not in cls._instance:
+            cls._instance[cls] = super(Singleton, cls).__call__(*args)
+        return cls._instance[cls]
