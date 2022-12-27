@@ -26,7 +26,7 @@ class _ThreadFetcher(Thread):
         self.log.info(f'ProxyFetch - {self.fetch_source}: start')
         try:
             for proxy in self.fetcher():
-                self.log.info(f'ProxyFetch - {self.fetch_source}: {proxy.ljust(23)}')
+                self.log.info(f'ProxyFetch - {self.fetch_source}: {proxy.ljust(23)} success')
                 proxy = proxy.strip()
                 if proxy in self.proxy_dict:
                     self.proxy_dict[proxy].add_source(self.fetch_source)

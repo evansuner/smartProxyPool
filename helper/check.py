@@ -46,14 +46,14 @@ class Validator:
         for func in ProxyValidator.http_validator:
             if not func(proxy.proxy):
                 return False
-            return True
+        return True
 
     @classmethod
     def https_validator(cls, proxy):
         for func in ProxyValidator.https_validator:
             if not func(proxy.proxy):
                 return False
-            return True
+        return True
 
     @classmethod
     def pre_validator(cls, proxy):
@@ -68,7 +68,7 @@ class Validator:
             url = f'https://searchplugin.csdn.net/api/v1/ip/get?ip={proxy.proxy.split(":")[0]}'
             r = WebRequest().get(url, retry_time=1, timeout=2).json
             return r['data']['address']
-        except Exception:
+        except TimeoutError:
             return 'error'
 
 
@@ -76,7 +76,8 @@ class _ThreadChecker(Thread):
     """multithread checking"""
 
     def __int__(self, work_type, target_queue, thread_name):
-        Thread.__init__(self, name=thread_name, group=None)
+        Thread.__init__(self, name=thread_name)
+        print('------------------------------多线程检查')
         self.work_type = work_type
         self.log = LogHandler('checker')
         self.proxy_handler = ProxyHandler()
@@ -140,8 +141,3 @@ def checker(tp, queue):
 
     for thread in thread_list:
         thread.join()
-
-
-if __name__ == '__main__':
-    v = Validator()
-
