@@ -75,9 +75,8 @@ class Validator:
 class _ThreadChecker(Thread):
     """multithread checking"""
 
-    def __int__(self, work_type, target_queue, thread_name):
+    def __init__(self, work_type, target_queue, thread_name):
         Thread.__init__(self, name=thread_name)
-        print('------------------------------多线程检查')
         self.work_type = work_type
         self.log = LogHandler('checker')
         self.proxy_handler = ProxyHandler()
@@ -133,6 +132,7 @@ def checker(tp, queue):
     """
     thread_list = list()
     for index in range(20):
+        print('----------------------', index)
         thread_list.append(_ThreadChecker(tp, queue, "thread_%s" % str(index).zfill(2)))
 
     for thread in thread_list:
