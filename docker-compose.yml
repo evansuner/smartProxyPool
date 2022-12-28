@@ -1,14 +1,14 @@
 version: '3'
 services:
-  sproxy_pool:
+  agent:
     build: .
-    container_name: sproxy_pool
+    container_name: agent-pool
     ports:
       - "9091:9091"
     links:
-      - proxy_redis
+      - redis
     environment:
-      DB_CONN: "redis://@proxy_redis:6379/0"
-  proxy_redis:
+      DB_CONN: "redis://@redis:6379/0"
+  redis:
     image: redis:6
-    container_name: proxy_redis
+    container_name: agent_redis
