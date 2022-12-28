@@ -155,6 +155,11 @@ class Proxy:
         if value:
             self._ping = value
 
+    @anonymous.setter
+    def anonymous(self, value):
+        if value:
+            self._anonymous = value
+
     @source.setter
     def source(self, source_str):
         if source_str:

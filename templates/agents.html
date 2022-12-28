@@ -28,18 +28,27 @@
             <tr>
 
                 <td>{{item.proxy}}</td>
+
                 {% if item.https %}
                 <td>HTTPS</td>
                 {% else %}
                 <td>HTTP</td>
                 {% endif %}
+
                 {% if item.anonymous %}
-                <td>transparent</td>
-                {% else %}
                 <td>anonymous</td>
+                {% else %}
+                <td>transparent</td>
                 {% endif %}
+
                 <td>{{item.fail_count}}</td>
+
+                {% if item.region == 'error' %}
+                <td>未知</td>
+                {% else %}
                 <td>{{item.region}}</td>
+                {% endif %}
+
                 <td>{{item.check_count}}</td>
                 <td style="color: green">{{item.ping}}</td>
                 <td>{{item.last_time}}</td>

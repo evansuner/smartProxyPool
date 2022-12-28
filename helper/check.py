@@ -3,6 +3,7 @@
 
 __author__ = 'Evan'
 
+import json
 from queue import Empty
 from threading import Thread
 from datetime import datetime
@@ -12,6 +13,7 @@ from handler.proxy_handler import ProxyHandler
 from handler.config_handler import ConfigHandler
 from helper.validator import ProxyValidator
 from ping3 import ping
+import requests
 
 
 class Validator:
@@ -33,6 +35,7 @@ class Validator:
         proxy.last_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         proxy.last_status = True if is_http else False
         proxy.ping = cls.check_ping(proxy.proxy)
+        # proxy.anonymous = cls.check_anonymous(proxy.proxy)
         if is_http:
             if proxy.fail_count > 0:
                 proxy.fail_count -= 1
@@ -82,6 +85,21 @@ class Validator:
         if response is not None:
             delay = str(round(float(response) * 1000, 3)) + 'ms'
             return delay
+
+    @classmethod
+    def check_anonymous(cls, proxy) -> str:
+        ip = proxy.split(':')[0]
+        proxies = {'http': f'http://{proxy}', 'https': f'https://{proxy}'}
+        origin = ''
+        try:
+            r = requests.get('https://httpbin.org/ip', proxies=proxies)
+            origin = json.loads(r.text).get('origin')
+            print('------------------------', origin, ip)
+        except Exception as e:
+            pass
+        if origin != ip:
+            return 'anonymous'
+        return 'transparent'
 
 
 class _ThreadChecker(Thread):
