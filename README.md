@@ -1,85 +1,76 @@
-## smartProxyPool爬虫代理池
-### 运行项目
-#### Download code
+# smartProxyPool爬虫代理池
+
+## Run Project
+### Local Running
 + git clone
 ```bash
 git clone git@github.com:evansuner/smartProxyPool.git
 ```
-+ releases
-```bash
 
-```
-#### Install requirements
++ Install requirements
 ```bash
 pip3 install -r requirements.txt
 ```
-#### Update config(option)
-```bash
-# setting.py 为项目配置文件
-
-# 配置API服务
-
++ Update Configuration(option)  
+`setting.py`
+```python
+# API Server Configuration
 HOST = "0.0.0.0"               # IP
-PORT = 5000                    # 监听端口
+PORT = 9090                    # Listen port
 
-
-# 配置数据库
-
+# Database Configuration
 DB_CONN = 'redis://:pwd@127.0.0.1:8888/0'
 
-
-# 配置 ProxyFetcher
-
+# ProxyFetcher Configuration
 PROXY_FETCHER = [
-    "freeProxy01",      # 这里是启用的代理抓取方法名，所有fetch方法位于fetcher/proxyFetcher.py
-    "freeProxy02",
+    "freeProxy01",      # Here is the enabled proxy fetching method name,
+    "freeProxy02",      # All fetch methods located in fetcher/proxyFetcher.py
     # ....
 ]
 ```
-#### Start project
++  Start project
 ```bash
-# 如果已经具备运行条件, 可用通过proxyPool.py启动。
-# 程序分为: schedule 调度程序 和 server Api服务
+# If you already have the running conditions, you can start it through server_proxy_pool.py。
+# The program is divided into: schedule scheduler and server Api service
 
-# 启动调度程序
-python proxyPool.py schedule
+# start schedule programme and web api server
+python3 server_proxy_pool.py schedule &
+python3 server_proxy_pool.py server
 
-# 启动webApi服务
-python proxyPool.py server
 ```
-### Docker Image
+### Docker Running
 ```bash
 docker pull jhao104/proxy_pool
 
-docker run --env DB_CONN=redis://:password@ip:port/0 -p 5010:5010 jhao104/proxy_pool:latest
+docker run --env DB_CONN=redis://:123456@ip:port/0 -p 9090:9090 jhao104/proxy_pool:latest
 ```
-### Docker compose
+### Docker Compose Running
 ```bash
 docker compose up -d
 ```
 
 ## Usage
 + Api
-启动web服务后, 默认配置下会开启 http://127.0.0.1:5010 的api接口服务:
+start server,  http://127.0.0.1:9090:
 
-| api      | 	method	 | Description | 	params                         |
-|:---------|:---------|:------------|:--------------------------------|
-| /        | 	GET     | 	api介绍	     | None                            |
-| /get     | 	GET     | 	随机获取一个代理   | 	可选参数: ?type=https 过滤支持https的代理 |
-| /pop     | GET	     | 获取并删除一个代理	  | 可选参数: ?type=https 过滤支持https的代理  |
-| /all	    | GET	     | 获取所有代理	     | 可选参数: ?type=https 过滤支持https的代理  |
-| /count	  | GET	     | 查看代理数量	     | None                            |
-| /delete	 | GET	     | 删除代理	       | ?proxy=host:ip                  |
+| api      | 	method	 | Description              | 	params                                                       |
+|:---------|:---------|:-------------------------|:--------------------------------------------------------------|
+| /        | 	GET     | 	api介绍	                  | None                                                          |
+| /get     | 	GET     | 	randomly get an agent   | 	option params: ?type=https filter type is https              |
+| /pop     | GET	     | get and remove an agent	 | option params: ?type=https filter type is https               |
+| /all	    | GET	     | get all agents	          | option params: ?type=https filter type is https               |
+| /count	  | GET	     | view counts of agents	   | None                                                          |
+| /delete	 | GET	     | delete agent	            | ?proxy=host:ip                                                |
 
-+ Using in Spiders
-If these proxies will use in spiders, these APIs need to be wrapped into function calls, example:
++ Using in Spiders  
+If these proxies are used in spiders, these APIs need to be wrapped into function calls, example:
 ```python
 import requests
 
 def get_proxy():
-    return requests.get('https://127.0.0.1:5010/get/').json()
+    return requests.get('https://127.0.0.1:9090/get/').json()
 def delete_proxy(proxy):
-    return requests.get(f'https://127.0.0.1:5010/delete?proxy={proxy}')
+    return requests.get(f'https://127.0.0.1:9090/delete?proxy={proxy}')
 
 # your spider code here
 def parse():
@@ -112,8 +103,8 @@ class ProxyFetcher:
 2. update settings config:
 ```python
 PROXY_FETCHER = [
-...,
-'free_proxy_custom1'
+    ...,
+    'free_proxy_custom1'
 ]
 ```
-finally, `schedule` process would use your method to scrapy new proxies.
+Finally, `schedule` process would use your method to scrapy new proxies.
