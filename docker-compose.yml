@@ -3,6 +3,7 @@ services:
   agent:
     build: .
     container_name: agent-pool
+    restart: always
     ports:
       - "9091:9091"
     links:
@@ -11,4 +12,5 @@ services:
       DB_CONN: "redis://@redis:6379/0"
   redis:
     image: redis:6
+    restart: always
     container_name: agent_redis
