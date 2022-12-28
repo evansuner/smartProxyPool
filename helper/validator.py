@@ -5,7 +5,6 @@ __author__ = 'Evan'
 
 from re import findall
 from requests import head
-from requests.exceptions import Timeout
 from utils.six import withMetaclass
 from utils.singleton import Singleton
 from handler.config_handler import ConfigHandler
@@ -55,7 +54,7 @@ def http_timeout_validator(proxy):
     try:
         r = head(conf.http_url, headers=HEADER, proxies=proxies, timeout=conf.verify_timeout)
         return True if r.status_code == 200 else False
-    except Timeout as e:
+    except Exception as e:
         return False
 
 
@@ -64,9 +63,9 @@ def https_timeout_validator(proxy):
     """https timeout checking"""
     proxies = {'http': f'http://{proxy}', 'https': f'https://{proxy}'}
     try:
-        r = head(conf.http_url, headers=HEADER, proxies=proxies, timeout=conf.verify_timeout)
+        r = head(conf.http_url, headers=HEADER, proxies=proxies, timeout=conf.verify_timeout, verify=False)
         return True if r.status_code == 200 else False
-    except Timeout as e:
+    except Exception as e:
         return False
 
 

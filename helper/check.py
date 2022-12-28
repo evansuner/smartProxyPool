@@ -30,7 +30,7 @@ class Validator:
         is_https = False if not is_http else cls.https_validator(proxy)
         proxy.check_count += 1
         proxy.last_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        proxy.last_status = True if is_https else False
+        proxy.last_status = True if is_http else False
         if is_http:
             if proxy.fail_count > 0:
                 proxy.fail_count -= 1
@@ -68,7 +68,7 @@ class Validator:
             url = f'https://searchplugin.csdn.net/api/v1/ip/get?ip={proxy.proxy.split(":")[0]}'
             r = WebRequest().get(url, retry_time=1, timeout=2).json
             return r['data']['address']
-        except TimeoutError:
+        except Exception as e:
             return 'error'
 
 
@@ -84,42 +84,44 @@ class _ThreadChecker(Thread):
         self.conf = ConfigHandler()
 
     def run(self) -> None:
-        self.log.info(f'{self.work_type.title()} ProxyCheck - {self.name}: start')
+        self.log.info(f'{self.work_type.title()}ProxyCheck -- {self.name}: start')
         while True:
             try:
                 proxy = self.target_queue.get(block=False)
             except Empty:
-                self.log.info(f'{self.work_type.title()} ProxyCheck - {self.name}: complete')
+                self.log.info(f'{self.work_type.title()}ProxyCheck -- {self.name}: completed')
                 break
             proxy = Validator.validator(proxy, self.work_type)
             if self.work_type == 'raw':
-                self.__if_raw(proxy)
+                if proxy:
+                    self.__if_raw(proxy)
             else:
-                self.__if_use(proxy)
+                if proxy:
+                    self.__if_use(proxy)
             self.target_queue.task_done()
 
     def __if_raw(self, proxy):
         if proxy.last_status:
             if self.proxy_handler.exists(proxy):
-                self.log.info(f'RawProxyCheck - {self.name}: {proxy.proxy.ljust(23)} exist')
+                self.log.info(f'RawProxyCheck - {self.name}: {proxy.proxy.ljust(23)} existed')
             else:
-                self.log.info(f'RawProxyCheck - {self.name}: {proxy.proxy.ljust(23)} pass')
+                self.log.info(f'RawProxyCheck - {self.name}: {proxy.proxy.ljust(23)} passed')
                 self.proxy_handler.put(proxy)
         else:
             self.log.info(f'RawProxyCheck - {self.name}: {proxy.proxy.ljust(23)} failed')
 
     def __if_use(self, proxy):
         if proxy.last_status:
-            self.log.info(f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} pass')
+            self.log.info(f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} passed')
             self.proxy_handler.put(proxy)
         else:
             if proxy.fail_count > self.conf.maxFailCount:
                 self.log.info(
-                    f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} fail, count {proxy.fail_count} delete')
+                    f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} failed, count {proxy.fail_count} deleted')
                 self.proxy_handler.delete(proxy)
             else:
                 self.log.info(
-                    f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} fail, count {proxy.fail_count} keep')
+                    f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} failed, count {proxy.fail_count} keep')
                 self.proxy_handler.put(proxy)
 
 
@@ -131,8 +133,9 @@ def checker(tp, queue):
     :return:
     """
     thread_list = list()
-    for index in range(20):
-        thread_list.append(_ThreadChecker(tp, queue, "thread_%s" % str(index).zfill(2)))
+    for index in range(16):
+        # 开启16个线程
+        thread_list.append(_ThreadChecker(tp, queue, "thread_%s" % str(index + 1).zfill(2)))
 
     for thread in thread_list:
         thread.setDaemon(True)
