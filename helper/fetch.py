@@ -10,7 +10,7 @@ from handler.log_handler import LogHandler
 from handler.config_handler import ConfigHandler
 from handler.proxy_handler import ProxyHandler
 from fetcher.proxy_fetcher import ProxyFetcher
-
+import time
 
 class _ThreadFetcher(Thread):
     def __init__(self, fetch_source, proxy_dict):

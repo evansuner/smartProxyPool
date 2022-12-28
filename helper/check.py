@@ -11,6 +11,7 @@ from handler.log_handler import LogHandler
 from handler.proxy_handler import ProxyHandler
 from handler.config_handler import ConfigHandler
 from helper.validator import ProxyValidator
+from ping3 import ping
 
 
 class Validator:
@@ -31,6 +32,7 @@ class Validator:
         proxy.check_count += 1
         proxy.last_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         proxy.last_status = True if is_http else False
+        proxy.ping = cls.check_ping(proxy.proxy)
         if is_http:
             if proxy.fail_count > 0:
                 proxy.fail_count -= 1
@@ -70,6 +72,16 @@ class Validator:
             return r['data']['address']
         except Exception as e:
             return 'error'
+
+    @classmethod
+    def check_ping(cls, proxy) -> str:
+        """
+        获取节点的延迟
+        """
+        response = ping(proxy)
+        if response is not None:
+            delay = str(round(float(response) * 1000, 3)) + 'ms'
+            return delay
 
 
 class _ThreadChecker(Thread):

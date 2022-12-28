@@ -105,3 +105,4 @@ class DBClient(withMetaclass(Singleton)):
 
     def test(self):
         return self.client.test()
+

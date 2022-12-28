@@ -5,6 +5,10 @@ __author__ = 'Evan'
 
 import sys
 from os.path import dirname, abspath
+
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
+
 base_path = dirname(dirname(abspath(__file__)))
 sys.path.insert(0, base_path)
 from fastapi import FastAPI, Request
@@ -15,6 +19,9 @@ from handler.proxy_handler import ProxyHandler
 from handler.config_handler import ConfigHandler
 
 app = FastAPI()
+app.mount('/static', StaticFiles(directory='static'), name='static')
+templates = Jinja2Templates(directory='templates')
+
 conf = ConfigHandler()
 proxy_handler = ProxyHandler()
 
@@ -77,6 +84,14 @@ async def count():
         for source in proxy.source.split('/'):
             source_dict[source] = source_dict.get(source, 0) + 1
     return {"http_type": http_type_dict, "source": source_dict, "count": len(proxies)}
+
+
+@app.get('/agents')
+async def agents(request: Request):
+    https = request.method.lower() == 'https'
+    proxies = proxy_handler.get_all(https)
+    return templates.TemplateResponse('agents.html', {"request": request, "data": proxies})
+    # print(type(proxies))
 
 
 def run_fastapi():

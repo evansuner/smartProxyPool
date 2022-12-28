@@ -9,7 +9,7 @@ import json
 class Proxy:
     def __init__(self, proxy, fail_count: int = 0, region: str = '', anonymous: str = '',
                  source: str = '', check_count: int = 0, last_status: str = '',
-                 last_time: str = '', https: bool = False) -> None:
+                 last_time: str = '', https: bool = False, ping: str = '') -> None:
         self._proxy = proxy
         self._fail_count = fail_count
         self._region = region
@@ -19,6 +19,7 @@ class Proxy:
         self._last_status = last_status
         self._last_time = last_time
         self._https = https
+        self._ping = ping
 
     @classmethod
     def create_from_json(cls, proxy_json: json):
@@ -33,6 +34,7 @@ class Proxy:
             last_status=_dict.get('last_status', ''),
             last_time=_dict.get('last_time', ''),
             https=_dict.get('https', False),
+            ping=_dict.get('ping', ''),
         )
 
     @property
@@ -99,6 +101,11 @@ class Proxy:
         return self._https
 
     @property
+    def ping(self):
+        """获取ping值"""
+        return self._ping
+
+    @property
     def to_dict(self):
         """python对象格式数据"""
         return {
@@ -111,6 +118,7 @@ class Proxy:
             'last_status': self.last_status,
             'last_time': self.last_time,
             'https': self.https,
+            'ping': self.ping,
         }
 
     @property
@@ -141,6 +149,11 @@ class Proxy:
     @https.setter
     def https(self, value):
         self._https = value
+
+    @ping.setter
+    def ping(self, value):
+        if value:
+            self._ping = value
 
     @source.setter
     def source(self, source_str):
