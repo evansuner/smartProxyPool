@@ -20,7 +20,7 @@ VERSION = "1.0"
 
 # server config
 HOST = '0.0.0.0'
-PORT = 5010
+PORT = 9091
 
 # database config
 DB_CONN = 'redis://:123456@127.0.0.1:6379/0'

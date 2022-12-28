@@ -1,4 +1,4 @@
-FROM python:3.9-alphine
+FROM python:3.9-alpine
 WORKDIR /app
 COPY ./requirements.txt .
 
@@ -14,5 +14,5 @@ RUN apk add musl-dev gcc libxml2-dev libxslt-dev && \
     apk del gcc musl-dev
 
 COPY . .
-EXPOSE 5010
+EXPOSE 9091
 CMD [ "sh", "start.sh" ]
