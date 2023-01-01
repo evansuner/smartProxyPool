@@ -5,7 +5,6 @@ __author__ = 'Evan'
 
 import os
 import logging
-import platform
 from logging.handlers import TimedRotatingFileHandler
 
 # log level
@@ -28,6 +27,7 @@ if not os.path.exists(LOG_PATH):
     except FileExistsError:
         pass
 
+
 class LogHandler(logging.Logger):
     """
     LogHandler
@@ -41,7 +41,7 @@ class LogHandler(logging.Logger):
             self.__setStreamHandler__()
         if file:
             self.__setFileHandler__()
-    
+
     def __setFileHandler__(self, level=None):
         """
         set file handler
@@ -54,10 +54,10 @@ class LogHandler(logging.Logger):
         file_handler.suffix = "%Y%m%d.log"
         if not level:
             file_handler.setLevel(self.level)
-        else: 
+        else:
             file_handler.setLevel(level)
         formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-        
+
         file_handler.setFormatter(formatter)
         self.file_handler = file_handler
         self.addHandler(file_handler)
@@ -69,13 +69,14 @@ class LogHandler(logging.Logger):
         :return:
         """
         stream_handler = logging.StreamHandler()
-        formatter =logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+        formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
         stream_handler.setFormatter(formatter)
         if not level:
             stream_handler.setLevel(self.level)
         else:
             stream_handler.setLevel(level)
         self.addHandler(stream_handler)
+
 
 if __name__ == "__main__":
     log = LogHandler('test')

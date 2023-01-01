@@ -5,12 +5,14 @@ __author__ = 'Evan'
 
 import os
 import sys
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, '..'))
 import settings
 from utils.singleton import Singleton
 from utils.lazy_property import LazyProperty
 from utils.six import withMetaclass
+
 
 class ConfigHandler(withMetaclass(Singleton)):
     def __init__(self) -> None:
@@ -72,6 +74,7 @@ class ConfigHandler(withMetaclass(Singleton)):
     def timezone(self):
         return os.getenv("TIMEZONE", settings.TIMEZONE)
 
+
 if __name__ == '__main__':
-   c = ConfigHandler() 
-   print(c.fetchers)
+    c = ConfigHandler()
+    print(c.fetchers)

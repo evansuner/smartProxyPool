@@ -5,12 +5,13 @@ __author__ = 'Evan'
 
 import re
 import json
-from datetime import datetime
 from time import sleep
 from utils.web_request import WebRequest
 from urllib import parse
 from urllib3.exceptions import InsecureRequestWarning
 import requests
+from requests.exceptions import ConnectionError
+
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -120,7 +121,7 @@ class ProxyFetcher:
                 json_info = json.loads(each)
                 if json_info.get("country") == "CN":
                     yield f"{json_info.get('host', '')}:{json_info.get('port', '')}"
-        except Exception as e:
+        except ConnectionError:
             pass
 
     @classmethod
@@ -166,7 +167,7 @@ class ProxyFetcher:
                 try:
                     ip = tr.xpath('./td[1]/text()')[0].strip()
                     port = tr.xpath('./td[2]/text()')[0].strip()
-                except Exception as e:
+                except NotImplementedError:
                     continue
                 if port and ip:
                     yield f'{ip}:{port}'
