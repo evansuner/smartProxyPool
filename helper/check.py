@@ -145,7 +145,7 @@ class _ThreadChecker(Thread):
             self.log.info(f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} passed')
             self.proxy_handler.put(proxy)
         else:
-            if proxy.fail_count > self.conf.maxFailCount:
+            if proxy.fail_count > self.conf.max_fail_count:
                 self.log.info(
                     f'UseProxyCheck - {self.name}: {proxy.proxy.ljust(23)} failed, count {proxy.fail_count} deleted')
                 self.proxy_handler.delete(proxy)
