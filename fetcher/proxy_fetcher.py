@@ -91,7 +91,7 @@ class ProxyFetcher:
                 yield f'{ip}:{port}'
 
     @classmethod
-    def free_proxy05(cls, page_count=3):
+    def free_proxy05(cls, page_count=2):
         """
         https://www.kuaidaili.com
         """
