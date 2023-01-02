@@ -6,13 +6,12 @@ __author__ = 'Evan'
 import sys
 from os.path import dirname, abspath
 
-from starlette.staticfiles import StaticFiles
-from starlette.templating import Jinja2Templates
-
 base_path = dirname(dirname(abspath(__file__)))
 sys.path.insert(0, base_path)
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import JSONResponse, FileResponse
 import uvicorn
 from helper.proxy import Proxy
 from handler.proxy_handler import ProxyHandler
@@ -21,6 +20,7 @@ from handler.config_handler import ConfigHandler
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='static'), name='static')
 templates = Jinja2Templates(directory='templates')
+# router = app.router('/api/v1')
 
 conf = ConfigHandler()
 proxy_handler = ProxyHandler()
@@ -32,6 +32,13 @@ api_list = [
     {"url": "/all", "params": "type: ''https'|''", "desc": "get all proxy from proxy pool"},
     {"url": "/count", "params": "", "desc": "return proxy count"}
 ]
+
+favicon_path = 'static/favicon.ico'
+
+
+@app.get('/favicon.ico', include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
 
 
 @app.get('/')
