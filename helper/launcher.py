@@ -17,40 +17,40 @@ def start_server():
     run_fastapi()
 
 
-def __show_version():
-    from settings import VERSION
-    log.info(f'SmartProxyPool Version: {VERSION}')
-
-
-def __show_configuration():
-    conf = ConfigHandler()
-    log.info(f'SmartProxyPool configure HOST: {conf.server_host}')
-    log.info(f'SmartProxyPool configure PORT: {conf.server_port}')
-    log.info(f'SmartProxyPool configure PROXY_FETCHER: {conf.fetchers}')
-
-
-def __check_db_config():
-    conf = ConfigHandler()
-    db = DBClient(conf.db_conn)
-    log.info('==================== DATABASE CONFIGURE ===================')
-    log.info(f'DB_TYPE: {db.db_type}')
-    log.info(f'DB_HOST: {db.db_host}')
-    log.info(f'DB_PORT: {db.db_port}')
-    log.info(f'DB_NAME: {db.db_name}')
-    log.info(f'DB_USER: {db.db_user}')
-    log.info('==========================================================')
-    return db.test()
+def start_schedule():
+    __before_start()
+    from helper.scheduler import run_scheduler
+    run_scheduler()
 
 
 def __before_start():
     __show_version()
-    __show_configuration()
+    __show_configure()
     if __check_db_config():
         log.info('exit!')
         sys.exit()
 
 
-def start_scheduler():
-    __before_start()
-    from helper.scheduler import run_scheduler
-    run_scheduler()
+def __show_version():
+    from settings import VERSION
+    log.info(f"ProxyPool Version: {VERSION}")
+
+
+def __show_configure():
+    conf = ConfigHandler()
+    log.info(f"ProxyPool configure HOST: {conf.server_host}")
+    log.info(f"ProxyPool configure PORT: {conf.server_port}")
+    log.info(f"ProxyPool configure PROXY_FETCHER: {conf.fetchers}")
+
+
+def __check_db_config():
+    conf = ConfigHandler()
+    db = DBClient(conf.db_conn)
+    log.info("============ DATABASE CONFIGURE ================")
+    log.info(f"DB_TYPE: {db.db_type}")
+    log.info(f"DB_HOST: {db.db_host}")
+    log.info(f"DB_PORT: {db.db_port}")
+    log.info(f"DB_NAME: {db.db_name}")
+    log.info(f"DB_USER: {db.db_user}")
+    log.info("=================================================")
+    return db.test()

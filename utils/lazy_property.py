@@ -4,12 +4,12 @@
 __author__ = 'Evan'
 
 
-class LazyProperty():
+class LazyProperty(object):
     """
     LazyProperty
     """
 
-    def __init__(self, func) -> None:
+    def __init__(self, func):
         self.func = func
 
     def __get__(self, instance, owner):
@@ -17,4 +17,5 @@ class LazyProperty():
             return self
         else:
             value = self.func(instance)
+            setattr(instance, self.func.__name__, value)
             return value

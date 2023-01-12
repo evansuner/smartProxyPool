@@ -3,8 +3,6 @@
 
 __author__ = 'Evan'
 
-from typing import Any
-
 
 class Singleton(type):
     """
@@ -13,7 +11,7 @@ class Singleton(type):
 
     _instance = {}
 
-    def __call__(cls, *args: Any, **kwargs: Any) -> Any:
+    def __call__(cls, *args, **kwargs):
         if cls not in cls._instance:
             cls._instance[cls] = super(Singleton, cls).__call__(*args)
         return cls._instance[cls]

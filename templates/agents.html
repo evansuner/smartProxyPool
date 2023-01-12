@@ -20,7 +20,6 @@
             <th scope="col">Fail Counts</th>
             <th scope="col">Region</th>
             <th scope="col">Check Counts</th>
-            <th scope="col">Ping</th>
             <th scope="col">Last Time</th>
         </tr>
         </thead>
@@ -51,7 +50,6 @@
                 {% endif %}
 
                 <td>{{item.check_count}}</td>
-                <td style="color: green">{{item.ping}}</td>
                 <td>{{item.last_time}}</td>
             </tr>
         {% endfor %}

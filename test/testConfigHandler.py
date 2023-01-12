@@ -8,10 +8,13 @@ from time import sleep
 
 
 def test_config():
+    """
+    :return:
+    """
     conf = ConfigHandler()
     print(conf.db_conn)
-    print(conf.server_host)
     print(conf.server_port)
+    print(conf.server_host)
     print(conf.table_name)
     assert isinstance(conf.fetchers, list)
     print(conf.fetchers)
@@ -23,3 +26,4 @@ def test_config():
 
 if __name__ == '__main__':
     test_config()
+

@@ -16,7 +16,7 @@ pip3 install -r requirements.txt
 ```python
 # API Server Configuration
 HOST = "0.0.0.0"               # IP
-PORT = 9090                    # Listen port
+PORT = 9091                    # Listen port
 
 # Database Configuration
 DB_CONN = 'redis://:pwd@127.0.0.1:8888/0'
@@ -94,7 +94,7 @@ class ProxyFetcher:
     """..."""
     ...
     @staticmethod
-    def free_proxy_custom1():
+    def freeProxyCustom1():
         """the function name should not duplicate exist"""
         proxies = ['x.x.x.x:5000','x.x.x.x:5001']
         for proxy in proxies:
@@ -104,7 +104,7 @@ class ProxyFetcher:
 ```python
 PROXY_FETCHER = [
     ...,
-    'free_proxy_custom1'
+    'freeProxyCustom1'
 ]
 ```
 Finally, `schedule` process would use your method to scrapy new proxies.

@@ -4,7 +4,7 @@
 __author__ = 'Evan'
 
 import click
-from helper.launcher import start_server, start_scheduler
+from helper.launcher import start_server, start_schedule
 from settings import VERSION, BANNER
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -19,7 +19,7 @@ def cli():
 @cli.command()
 def schedule():
     """start scheduler programme"""
-    start_scheduler()
+    start_schedule()
 
 
 @cli.command()

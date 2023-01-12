@@ -9,17 +9,17 @@ from handler.config_handler import ConfigHandler
 
 
 class ProxyHandler:
-    """Proxy CURD operators"""
+    """ Proxy CRUD operator"""
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.conf = ConfigHandler()
         self.db = DBClient(self.conf.db_conn)
         self.db.change_table(self.conf.table_name)
 
-    def get(self, https: False):
+    def get(self, https=False):
         """
         return a proxy
-        args:
+        Args:
             https: True/False
         Returns:
         """
@@ -27,7 +27,10 @@ class ProxyHandler:
         return Proxy.create_from_json(proxy) if proxy else None
 
     def pop(self, https):
-        """return and delete a useful proxy"""
+        """
+        return and delete a useful proxy
+        :return:
+        """
         proxy = self.db.pop(https)
         if proxy:
             return Proxy.create_from_json(proxy)

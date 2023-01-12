@@ -5,6 +5,8 @@ __author__ = 'Evan'
 
 import os
 import logging
+import platform
+
 from logging.handlers import TimedRotatingFileHandler
 
 # log level
@@ -40,18 +42,19 @@ class LogHandler(logging.Logger):
         if stream:
             self.__setStreamHandler__()
         if file:
-            self.__setFileHandler__()
+            if platform.system() != "Windows":
+                self.__setFileHandler__()
 
     def __setFileHandler__(self, level=None):
         """
         set file handler
-        : param level :
-        : return :
+        :param level:
+        :return:
         """
         file_name = os.path.join(LOG_PATH, '{name}.log'.format(name=self.name))
         # set log rollback, saving at log directory, one file for daily  and storing for 15 days
         file_handler = TimedRotatingFileHandler(filename=file_name, when='D', interval=1, backupCount=15)
-        file_handler.suffix = "%Y%m%d.log"
+        file_handler.suffix = '%Y%m%d.log'
         if not level:
             file_handler.setLevel(self.level)
         else:
@@ -78,6 +81,6 @@ class LogHandler(logging.Logger):
         self.addHandler(stream_handler)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     log = LogHandler('test')
-    log.info('this is a test message')
+    log.info('this is a test msg')

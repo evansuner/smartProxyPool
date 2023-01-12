@@ -3,14 +3,13 @@
 
 __author__ = 'Evan'
 
-from os.path import dirname, abspath
+import os
 import sys
 
-ROOT = dirname(dirname(abspath(__file__)))
-sys.path.insert(0, ROOT)
-from urllib.parse import urlparse
-from utils.six import withMetaclass
+from utils.six import urlparse, withMetaclass
 from utils.singleton import Singleton
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 class DBClient(withMetaclass(Singleton)):
@@ -32,11 +31,12 @@ class DBClient(withMetaclass(Singleton)):
 
     所有方法需要相应类去具体实现
     ssdb: ssdb_client.py
-    redis: redis_client.py
+    redis: redisClient.py
     mongodb: mongodb_client.py
+
     """
 
-    def __init__(self, db_conn) -> None:
+    def __init__(self, db_conn):
         """
         init
         :return:
@@ -51,27 +51,28 @@ class DBClient(withMetaclass(Singleton)):
         cls.db_host = db_conf.hostname
         cls.db_port = db_conf.port
         cls.db_user = db_conf.username
-        cls.db_password = db_conf.password
+        cls.db_pwd = db_conf.password
         cls.db_name = db_conf.path[1:]
         return cls
 
     def __init_db_client(self):
         """
-        init db client
+        init DB Client
         :return:
         """
-        if "REDIS" == self.db_type:
-            from .redis_client import RedisClient
-            self.client = RedisClient(
-                host=self.db_host,
-                port=self.db_port,
-                username=self.db_user,
-                password=self.db_password,
-                db=self.db_name
-            )
+        __type = None
+        if "SSDB" == self.db_type:
+            __type = "ssdbClient"
+        elif "REDIS" == self.db_type:
+            __type = "redisClient"
         else:
             pass
-        assert 'database type error, not supported DB type: {}'.format(self.db_type)
+        assert __type, 'type error, Not support DB type: {}'.format(self.db_type)
+        self.client = getattr(__import__(__type), "%sClient" % self.db_type.title())(host=self.db_host,
+                                                                                     port=self.db_port,
+                                                                                     username=self.db_user,
+                                                                                     password=self.db_pwd,
+                                                                                     db=self.db_name)
 
     def get(self, https, **kwargs):
         return self.client.get(https, **kwargs)
