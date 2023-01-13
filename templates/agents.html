@@ -16,7 +16,7 @@
 <!--            <th scope="col">#</th>-->
             <th scope="col">Agent</th>
             <th scope="col">Protocol</th>
-            <th scope="col">Type</th>
+<!--            <th scope="col">Type</th> -->
             <th scope="col">Fail Counts</th>
             <th scope="col">Region</th>
             <th scope="col">Check Counts</th>
@@ -35,10 +35,10 @@
                 <td>HTTP</td>
                 {% endif %}
 
-                {% if item.anonymous %}
-                <td>anonymous</td>
-                {% else %}
-                <td>transparent</td>
+{#                {% if item.anonymous %}#}
+{#                <td>anonymous</td>#}
+{#                {% else %}#}
+{#                <td>transparent</td>#}
                 {% endif %}
 
                 <td>{{item.fail_count}}</td>
